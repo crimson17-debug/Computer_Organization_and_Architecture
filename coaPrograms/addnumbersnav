@@ -1,0 +1,44 @@
+.data 
+prompt1: .string "Enter the first number: "
+prompt2: .string "Enter the second number: "
+result: .string "The sum of the two numbers is "
+
+
+.text
+.global main
+
+main:
+
+li a7, 4
+la a0, prompt1
+ecall
+
+li a7, 5
+ecall
+
+mv t0 ,a0
+
+
+li a7, 4
+la a0, prompt2
+ecall
+
+li a7, 5
+ecall
+
+mv t1, a0
+
+add t2, t1, t0
+
+li a7, 4
+la a0, result
+ecall
+
+mv a0, t2
+
+li a7, 1
+ecall
+
+
+li a7, 10
+ecall

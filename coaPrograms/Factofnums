@@ -1,0 +1,40 @@
+.data 
+prompt: .string "Enter the number: "
+fact: .string "The factorial of the number is "
+
+
+.text
+.global main
+main:
+
+
+li a7, 4
+la a0, prompt
+ecall
+
+li a7, 5
+ecall
+
+mv t0, a0
+li t1, 1
+
+fact_loop:
+beq t0 , x0 ,done
+mul t1, t1, t0
+addi t0, t0 , -1
+j fact_loop
+
+
+done:
+
+li a7, 4
+la a0, fact
+ecall
+
+mv a0, t1
+
+li a7, 1
+ecall
+
+li a7, 10
+ecall

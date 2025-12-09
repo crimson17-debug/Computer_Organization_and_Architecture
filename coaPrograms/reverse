@@ -1,0 +1,57 @@
+.data
+array: .word 1 2 3 4 5 6 7
+size: .word 7
+space: .string " "
+
+.text
+.global main
+main:
+
+
+la t0, array
+lw s0, size
+
+addi s0, s0, -1	 #n-1 index
+li s1, 0         #o index
+
+loop:
+bge s1, s0, print
+
+slli t1, s0, 2
+add t1, t0, t1
+mv t3, t1
+
+slli t2, s1, 2
+add t2, t0, t2
+mv t4, t2
+
+sw t4, 0(t1)
+sw t3, 0(t2)
+
+addi s1, s1, 1
+addi s0,s0, -1
+j loop
+
+print:
+la t0,array
+lw t1, size
+li t3, 0
+
+sloop:
+beq t3, t1, exit
+lw t2, 0(t0)
+mv a0, t2
+li a7, 1
+ecall
+
+li a7, 4
+la a0, space
+ecall
+
+addi t0, t0, 4
+addi t3, t3, 1
+j sloop
+
+exit:
+li a7, 10
+ecall

@@ -1,0 +1,47 @@
+.data
+prompt: .string "Enter the string "
+len: .string "The len of the string "
+buffer: .space 100
+
+
+.text
+.global main
+
+main:
+
+li a7 , 4
+la a0, prompt
+ecall
+
+li a7, 8
+la a0, buffer
+li a1, 100
+ecall
+
+mv t0, a0
+li t1, 0
+
+len_loop:
+lb t2, 0(t0)
+beq t2, x0, done
+li t3, 10
+beq t3, t2, done
+addi t1, t1, 1
+addi t0, t0, 1
+j len_loop
+
+
+done:
+
+li a7, 4
+la a0, len
+ecall
+
+mv a0, t1
+
+li a7, 1
+ecall
+
+
+li a7, 10
+ecall
